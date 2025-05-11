@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Mes Vehicules   </h4>
+
+           <a href="{% url 'create_Vehicule' %}"class="btn btn-info float-left"><i class="fas fa-plus menu-icon"></i>  ajouter vehicule <i class=" fas fa-car-side menu-icon"></i> </a>
+
+          <div class="table-responsive"> <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <tr>
+                <!--<th >N° taxi</th>-->
+                <th>image</th>
+                    <th>marque</th>
+                    <th>modele vehicule</th>
+                    <th>immatriculation</th>
+                    <th>N° chassis</th>
+                    <th>modifier</th>
+                    <th>detail </th>
+                  </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <!--<th >N° taxi</th>-->
+                  <th>image</th>
+                  <th>marque</th>
+                  <th>modele vehicule</th>
+                  <th>immatriculation</th>
+                  <th>N° chassis</th>
+                  <th>modifier</th>
+                  <th>detail </th>
+                </tr>
+          </tfoot>
+            <tbody>
+                {% for Vehicule in list_voiture %}
+              <tr>
+                  <!--<td>N°{{Vehicule.Label_voiture}}</td>-->
+                    <td><img src="{{ Vehicule.vehicule_photos.url }}" alt="Vehicle Photo" style="max-width: 100px; max-height: 100px; "></td>
+                    <td>{{Vehicule.Marque_voiture}}</td>
+                    <td>{{Vehicule.Modele_voiture}}</td>
+                    <td>{{Vehicule.immatriculation}}</td>
+                    <td>{{Vehicule.Numero_chassis}}</td>
+
+                    <td>
+                      <a href="{% url 'updateview_Vehicule' pk=Vehicule.pk %}"   class="btn btn-inverse-primary btn-fw"><i class="fas fa-edit  menu-icon"></i></a>
+                    </td>
+                    <td>
+                      <a href="{% url 'Vehicule_detail' Vehicule.pk %}"class="btn btn-inverse-info btn-fw"><i class="fas fa-eye  menu-icon"></i></a>       
+                  </td>
+              </tr>
+              {% endfor %}
+              
+              <!-- Ajouter les liens de pagination -->
+              <div class="pagination-container">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"><i class="fas fa-angle-left"></i></i> Précédent</a>
+                            {% endif %}
+            
+                            <span class="current">
+                                Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                            </span>
+            
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Suivant <i class="fas fa-angle-right"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></i></a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+<style>
+  .pagination-container {
+    text-align: right;
+}
+
+</style>

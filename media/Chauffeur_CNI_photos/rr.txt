@@ -1,0 +1,7 @@
+D2WD4GHA5FT4WKWTZ5RDFHO4YEOZZT5Q
+
+ngrok config add-authtoken 2g2uQhSU0GwaZIgXa7LcF6TXZnf_TQd1UdUdEftMPokvS5Vm
+
+ngrok http http://localhost:8000
+
+ngrok config add-authtoken 2g2uQhSU0GwaZIgXa7LcF6TXZnf_TQd1UdUdEftMPokvS5Vm

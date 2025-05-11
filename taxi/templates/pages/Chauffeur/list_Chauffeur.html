@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Mes Chauffeur</h4>
+        
+          
+            <a href="{% url 'create_Chauffeur' %}" class="btn btn-info float-left"><i class="fas fa-plus menu-icon"></i> ajouter chauffeur    <i class="  fas fa-user-alt  menu-icon"></i></a>
+          
+        
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Photo</th>
+                <th>nom</th>
+                <th>prenom</th>
+                <th>contact</th>
+                <th>Date_de_prise_serice</th>
+                <th>N° Permis</th>
+                <th>modifier</th>
+                <th>detail</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for Chauffeur in list_Chauffeur %}
+              <tr>
+                
+                    <td><img src="{{Chauffeur.Chauffeur_photos.url}}" alt="chauffeur Photo" style="max-width: 100px; max-height: 100px;"></td>
+                    <td>{{Chauffeur.Nom}}</td>
+                    <td>{{Chauffeur.Prenom}}</td>
+                    <td>{{Chauffeur.Contact}}</td>
+                    <td>{{Chauffeur.Date_de_prise_service}}</td>
+                    <td>{{Chauffeur.N_permis}}</td>
+                    <td>
+                      <a href="{% url 'update_Chauffeur' pk=Chauffeur.pk %}"   class="btn btn-inverse-primary btn-fw"><i class="fas fa-edit  menu-icon"></i></a>
+                    </td>
+                    <td>
+                      <a href="{% url 'details_Chauffeur' Chauffeur.pk %}"class="btn btn-inverse-info btn-fw"><i class="fas fa-eye  menu-icon"></i></a>
+                            
+                  </td>
+              </tr>
+              {% endfor %}
+               
+              <!-- Ajouter les liens de pagination -->
+              <div class="pagination-container">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"><i class="fas fa-angle-left"></i></i> Précédent</a>
+                            {% endif %}
+            
+                            <span class="current">
+                                Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                            </span>
+            
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Suivant <i class="fas fa-angle-right"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></i></a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

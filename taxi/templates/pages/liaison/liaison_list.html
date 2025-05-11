@@ -1,0 +1,68 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"> Liste des chauffeurs avec les voitures liées  </h4>
+            
+            <form method="GET" action="">
+                <select name="vehicle_id"  class="form-control">
+                    <option value="">selectionner un vehicule pour voir les chauffeur lier </option>
+                    {% for vehicle in vehicles %}
+                        <option value="{{ vehicle.id }}">{{ vehicle }}</option>
+                    {% endfor %}
+                </select><br>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'liaison_create' %}" class="btn btn-info float-left">  <i class="fas fa-plus menu-icon"></i> Lier      <i class=" fas fa-car-side menu-icon"></i>       <i class=" fas fa-random "></i>             <i class="  fas fa-user-alt  menu-icon"></i></a>
+                    <button type="submit" class="btn btn-info float-left"> Filter</button>
+                </div>
+                 
+            </form> <br>
+            
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Véhicule</th>
+                            <th>Chauffeur</th>
+                            <th>Modifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for liaison in liaison_list %}
+                            <tr>
+                                <td>{{ liaison.vehicule }}</td>
+                                <td>{{ liaison.chauffeur }}</td>
+                                <td>
+                                    <a href="{% url 'updateview_liaison' pk=liaison.pk %}" class="btn btn-inverse-primary btn-fw"><i class="fas fa-edit  menu-icon"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                         
+              <!-- Ajouter les liens de pagination -->
+              <div class="pagination-container">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"><i class="fas fa-angle-left"></i></i> Précédent</a>
+                            {% endif %}
+            
+                            <span class="current">
+                                Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                            </span>
+            
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Suivant <i class="fas fa-angle-right"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></i></a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

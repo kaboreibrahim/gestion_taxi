@@ -1,0 +1,141 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rapport Véhicule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #555;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .report {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .report-section {
+            margin-bottom: 20px;
+        }
+        .report-section p {
+            margin: 8px 0;
+            font-weight: bold;
+        }
+        .back-link {
+            margin-top: 15px;
+            display: inline-block;
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            background-color: #5a6268;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sélectionner l'élément du formulaire
+            const vehiculeSelect = document.getElementById('vehicule_id');
+
+            // Ajouter un écouteur d'événement sur le changement de sélection
+            vehiculeSelect.addEventListener('change', function() {
+                // Soumettre automatiquement le formulaire quand un véhicule est sélectionné
+                document.getElementById('vehiculeForm').submit();
+            });
+        });
+    </script>
+</head>
+<body>
+
+    {% if not vehicule %}
+        <h1>Sélectionner un véhicule</h1>
+        <form method="post" action="{% url 'rapport_vehicule' %}" id="vehiculeForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="vehicule_id">Véhicule:</label>
+                <select name="vehicule_id" id="vehicule_id" class="form-control">
+                    {% for vehicule in vehicules %}
+                        <option value="{{ vehicule.id }}">{{ vehicule.immatriculation }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+           
+        </form>
+    {% else %}
+    
+        <h1>Rapport pour le véhicule {{ vehicule.immatriculation }}</h1>
+        
+        <a href="{% url 'rapport_vehicule' %}" class="back-link">⟵ Revenir en arrière pour choisir un autre véhicule</a>
+        
+        <div class="report">
+            <div class="report-section">
+                <h2>Dépenses et Recettes sur les 3 mois</h2>
+                <p>Montant total des dépenses : {{totals_depenses}} CFA</p>
+                <p>Montant total des recettes : {{ total_recettes }} CFA</p>
+                <p>Montant total des benefice : {{ total }} CFA</p>
+            </div>
+            <div class="report-section">
+                <h2>Entretien du véhicule</h2>
+                <p>Visites au garage au cours des 3 derniers mois : {{ garages }}</p>
+                <p>Kilométrage à la dernière venue au garage: {{ dernier_garage_km }} Km</p>
+                <p>Kilométrage à la dernière vidange: {{ dernier_vidange_km }} Km</p>
+                <p>Dernière date de venue au garage: {{ derniere_date_garage }}</p>
+            </div>
+            <div class="report-section">
+                <h2>Informations générales</h2>
+                <p>Date de fin de l'assurance: {{ assurance_fin }}</p>
+                <p>Date de fin de la visite technique: {{ visite_technique_fin }}</p>
+                <p>Année d'ancienneté du véhicule: {{ annee_anciennete }} Ans</p>
+            </div>
+        </div>
+    {% endif %}
+
+</body>
+</html>
+
+{% endblock %}

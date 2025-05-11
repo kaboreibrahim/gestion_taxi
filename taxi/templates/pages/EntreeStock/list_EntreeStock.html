@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title"style="text-align: center;">Mes Entrées de Stocks</h4>
+        
+          
+        <div class="d-flex justify-content-between">
+          <a href="{% url 'EntreeStock_create' %}" class="btn btn-info float-left">
+              <i class="fas fa-plus menu-icon"></i>
+              ajouter une nouvelle Entree de Stock
+          </a>
+          
+      </div>
+      
+            
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Piece</th>
+                <th>quantite </th>
+                <th>Date d'ajout</th>
+                <th>modifier</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for EntreeStock in EntreeStock_list %}
+              <tr>
+
+                    <td>{{EntreeStock.piece}}</td>
+                    <td>{{EntreeStock.quantite}}</td>
+                    <td>{{EntreeStock.date_entree}}</td>
+            
+                    <td>
+                      <a href="{% url 'update_EntreeStock' pk=EntreeStock.pk %}"  class="btn btn-inverse-primary btn-fw"><i class="fas fa-edit  menu-icon"></i></a>
+                    </td>
+                    
+              </tr>
+              {% endfor %}
+               
+              <!-- Ajouter les liens de pagination -->
+              <div class="pagination-container">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"><i class="fas fa-angle-left"></i></i> Précédent</a>
+                            {% endif %}
+            
+                            <span class="current">
+                                Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                            </span>
+            
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Suivant <i class="fas fa-angle-right"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></i></a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

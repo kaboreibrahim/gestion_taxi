@@ -1,0 +1,168 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+<div class="col-lg-12 grid-margin stretch-card">
+    
+    <div class="card">
+        
+        <div class="card-body">
+            <h2 style="text-align: center"><u>Ajouter une nouvelles VisiteTechnique d'un vehicules</u></h2><br><br>
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'create_VisiteTechnique' %}" class="btn btn-info float-left">
+                    <i class="fas fa-plus menu-icon"></i>
+                    Ajouter une nouvelle VisiteTechnique d'un vehicules
+                </a>
+                <a href="{% url 'VisiteTechnique_proches_fin' %}" class="btn btn-info float-right">
+                    <i class="  fas fa-file-alt  menu-icon"></i>
+                    VisiteTechnique a renouvelle dans le mois 
+                </a>
+            </div>
+           <br><br>
+            {% if VisiteTechniques_grouped_by_immatriculation %}
+            <h4  > Filtre en fonction des dates de debut et fin : </h4>
+              
+            <form method="get" class="d-flex justify-content-between">
+                <div class="form-group w-100 me-2">
+                  <label for="date_debut">Date de début</label>
+                  <input type="date" name="date_debut" class="form-control" id="date_debut">
+                </div>
+                <div class="form-group w-100 me-1">
+                  <label for="date_fin">Date de fin</label>
+                  <input type="date" name="date_fin" class="form-control" id="date_fin">
+                </div>
+                <div class="align-self-center">
+                  <button type="submit" class="btn btn-info">Filtrer</button>
+                </div>
+              </form>
+              
+            {% for immatriculation, data in VisiteTechniques_grouped_by_immatriculation.items %}
+            <button class="toggle-table btn btn-inverse-info btn-fw">
+                <div class="button-content " >
+                  <img src="{{ data.0.vehicule_image_url }}" alt="Image du véhicule" width="100">
+                  <br>
+                  {{ immatriculation }}
+                  <br>
+                </div>
+              </button>
+              
+            <div class="table-responsive d-none"><br>
+
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="6" style="text-align: center; ">{{ immatriculation }} </th>
+                        </tr>
+                        <tr>
+
+                            <th>Numero</th>
+                            <th>Date début</th>
+                            <th>Date fin</th>
+                            <th>vehicule</th>
+                            <th>observation</th>
+                            <th>modifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for VisiteTechnique in data %}
+                        <tr>
+                            <td>N°{{VisiteTechnique.VisiteTechnique.Ref}}</td>
+                          
+                            <td>{{VisiteTechnique.VisiteTechnique.Date_de_debut}}</td>
+                            <td>{{VisiteTechnique.VisiteTechnique.Date_de_fin}}</td>
+                            <td>{{VisiteTechnique.VisiteTechnique.immatriculation}}</td>
+                            <td>{{VisiteTechnique.VisiteTechnique.Observation}}</td>
+                            <td>
+                                <a href="{% url 'update_VisiteTechnique' pk=VisiteTechnique.VisiteTechnique.pk %}"  class="btn btn-inverse-primary btn-fw"><i class="fas fa-edit  menu-icon"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                         
+                        <!-- Ajouter les liens de pagination -->
+                        <div class="pagination-container">
+                            <div class="pagination">
+                                <span class="step-links">
+                                    {% if is_paginated %}
+                                        {% if page_obj.has_previous %}
+                                            <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"><i class="fas fa-angle-left"></i></i> Précédent</a>
+                                        {% endif %}
+                        
+                                        <span class="current">
+                                            Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                                        </span>
+                        
+                                        {% if page_obj.has_next %}
+                                            <a href="?page={{ page_obj.next_page_number }}">Suivant <i class="fas fa-angle-right"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h2 class="text-primary text-info"><a href="{% url 'list_VisiteTechnique' %}" >
+                <i class="fas fa-arrow-left"></i> Aucun element, Retourner à la liste des VisiteTechnique
+            </a></h2>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.toggle-table').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const table = btn.nextElementSibling;
+            const isHidden = table.classList.contains('d-none');
+
+            // Masquer tous les autres tableaux
+            document.querySelectorAll('.table-responsive').forEach(otherTable => {
+                if (otherTable !== table) {
+                    otherTable.classList.add('d-none');
+                }
+            });
+
+            // Masquer ou afficher tous les autres boutons
+            document.querySelectorAll('.toggle-table').forEach(otherBtn => {
+                if (otherBtn !== btn) {
+                    if (isHidden) {
+                        otherBtn.classList.add('d-none');
+                    } else {
+                        otherBtn.classList.remove('d-none');
+                    }
+                }
+            });
+
+            table.classList.toggle('d-none');
+        });
+    });
+</script>
+<style>   
+
+.toggle-table {
+    flex: 1 0 25%; /* Cela fera en sorte que chaque bouton occupe 1/4 de la largeur du conteneur */
+    margin: 5px; /* Ajoutez une marge pour l'espacement */
+    box-sizing: border-box; /* Incluez le rembourrage et la bordure dans la largeur du bouton */
+  }
+
+.button-content {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+height: 100%;
+}
+
+.button-content img {
+max-width: 100%;
+max-height: 100%;
+}
+
+</style>   
+
+{% endblock %}

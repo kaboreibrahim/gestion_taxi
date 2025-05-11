@@ -1,0 +1,94 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pM5Mu7TM6GqS02t6nDjFfMi9QlgPn+ZX9wiC0oOmzJw/lFf5cRTd9WJ3GmOgR4yh" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofGJopfM2Wq2+M5ffFfeUnF7tjCJb4qy1" crossorigin="anonymous">
+  
+<div class="col-lg-12 grid-margin stretch-card">
+
+    <div class="card">
+
+      <div class="card-body">
+        
+        <h2 style="text-align: center"><u>Ajouter une nouvelle  recette d'un vehicules</u></h2><br><br>
+   
+         {% if list_recette %}
+         <div class="d-flex justify-content-between">
+          <a href="{% url 'create_recette' %}" class="btn btn-info float-left"> <i class="fas fa-plus menu-icon"></i> nouvelle recette  <i class=" fas fa-dollar-sign  menu-icon"></i> </a>
+          <a href="{% url 'recette_details' %}" class="btn btn-info float-left"><i class="fas fa-eye  menu-icon"></i> recette détaillé </a>
+          
+        </div><br>
+         <form method="get" class="d-flex justify-content-between">
+          <div class="form-group w-100 me-2">
+            <label for="date_debut">Date de début</label>
+            <input type="date" name="date_debut" class="form-control" id="date_debut">
+          </div>
+          <div class="form-group w-100 me-1">
+            <label for="date_fin">Date de fin</label>
+            <input type="date" name="date_fin" class="form-control" id="date_fin">
+          </div>
+          <div class="align-self-center">
+            <button type="submit" class="btn btn-info float-left"> Filtrer</button>
+          </div>
+        </form>
+            <div class="table-responsive">
+             <table id="myTable" class="table table-striped">
+              <table id="myTable" class="table table-striped">
+
+                <thead>
+                  <tr>
+                    <th>date </th>
+                    <th>vehicule</th>
+                    <th>Montant</th>
+                    <th>modifier</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for Recette in list_recette %}
+                  <tr>
+                    <td>{{Recette.Date_ajout}}</td>
+                    <td>{{Recette.immatriculation}}</td>
+                    <td>{{Recette.Montant}} Cfa</td>
+                    <td>
+                      <a href="{% url 'update_recette' pk=Recette.pk %}" class="btn btn-inverse-primary btn-fw"><i class="fas fa-edit  menu-icon"></i></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  <!-- Ajouter les liens de pagination -->
+              <div class="pagination-container">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"><i class="fas fa-angle-left"></i></i> Précédent</a>
+                            {% endif %}
+            
+                            <span class="current">
+                                Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                            </span>
+            
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Suivant <i class="fas fa-angle-right"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></i></a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+            <a href="{% url 'create_recette' %}" class="btn btn-info">+  nouvelle recette </a><br><br>
+
+            <h2 class="text-primary text-info"><a href="{% url 'list_recette' %}" >
+              
+              <i class="fas fa-arrow-left"></i> Aucun element, Retourner à la liste des Recettes
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+ 

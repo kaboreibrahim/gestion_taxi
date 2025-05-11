@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <!-- Start Content-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title" style="text-align:center; 
+                        font-size: 24px;
+                        color: #333;">Ajouter une nouvelle note</h4>
+                        
+                        {% if method == "post" %}
+                            <form method="{{ method }}" class="form" enctype="multipart/form-data" action="{% url 'Create_Notebook' %}">
+                            {% crispy form %}
+                            </form>
+                        {% else %}
+                            <form method="post" class="form" enctype="multipart/form-data" action="">
+                            {% crispy form %}
+                            </form>
+                        {% endif %}
+                    </div>
+                    <!-- end card-body -->
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container -->
+{% endblock content %}
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#id_vehicule').change(function () {
+                var url = "{% url 'load_chauffeurs' %}";  // get the URL of the `load_chauffeurs` view
+                var vehiculeId = $(this).val();  // get the selected vehicle ID from the HTML input
+
+                $.ajax({  // initialize an AJAX request
+                    url: url,
+                    data: {
+                        'vehicule_id': vehiculeId  // add the vehicle ID to the GET parameters
+                    },
+                    success: function (data) {  // `data` is the return of the `load_chauffeurs` view function
+                        $("#id_chauffeur").html('');  // empty the chauffeur select
+                        $.each(data, function (key, value) {
+                            $("#id_chauffeur").append('<option value="' + value.id + '">' + value.Nom + ' ' + value.Prenom + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock scripts %}

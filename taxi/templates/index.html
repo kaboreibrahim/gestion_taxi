@@ -1,0 +1,336 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="row  mt-3">
+  <div class="col-xl-5 d-flex grid-margin stretch-card">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <h4 class="card-title mb-3">Assurances expirant dans la semaine</h4>
+                <i class="fas fa-calendar-alt fa-2x text-primary"></i> <!-- Icône de calendrier -->
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <ul class="list-group list-group-flush">
+                        {% for assurance_info in assurances|slice:"2" %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Immatriculation:</strong> {{ assurance_info.assurance.immatriculation }}<br>
+                                <strong>Date de fin:</strong> {{ assurance_info.assurance.Date_fin }}<br>
+                                <strong>Jours restants:</strong> {{ assurance_info.jours_restants }} jours<br>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">Aucune assurance n'expire cette semaine.</li>
+                        {% endfor %}
+                    </ul>
+                    {% if assurances|length > 2 %}
+                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#AssurancesModal">
+                        Voir plus
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="AssurancesModal" tabindex="-1" role="dialog" aria-labelledby="AssurancesModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="AssurancesModal">Assurances</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <ul class="list-group list-group-flush">
+                  {% for assurance_info in assurances|slice:"2:" %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                          <strong>Immatriculation:</strong> {{ assurance_info.assurance.immatriculation }}<br>
+                          <strong>Date de fin:</strong> {{ assurance_info.assurance.Date_fin }}<br>
+                          <strong>Jours restants:</strong> {{ assurance_info.jours_restants }} jours<br>
+                      </div>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+  <div class="col-xl-3 d-flex grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between">
+          <h4 class="card-title mb-3">VEHICULE</h4>
+          <i class="fas fa-car fa-2x text-primary"></i> <!-- Icône de calendrier -->
+
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="d-flex justify-content-between mb-md-5 mt-3">
+                  <div class="">TOTAL :{{nombre_vehicules}}</div>
+                </div>
+                <div class="d-flex justify-content-between mb-md-5 mt-3">
+                  
+                  <div class="text-success ">CIRCULATION  :{{ nombre_vehicules_en_circulation }}</div> 
+                </div>
+                <div class="d-flex justify-content-between mb-md-5 mt-3">
+                  <div class="text-danger">
+                    <a href="{% url 'Notebook_List' %}" >GARAGE: {{ nombre_vehicules_au_garage }}</a>
+                </div>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 d-flex grid-margin stretch-card">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex flex-wrap justify-content-between align-items-center">
+        <h4 class="card-title mb-3">Visites techniques expirant ce mois</h4>
+        <i class="fas fa-wrench fa-2x text-primary"></i> <!-- Icône de clé à molette -->
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-group list-group-flush">
+            {% for visite_info in visites_techniques|slice:"2" %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Immatriculation:</strong> {{ visite_info.immatriculation }}<br>
+                  <strong>Date de fin:</strong> {{ visite_info.Date_de_fin }}<br>
+                  <strong>Jours restants:</strong> {{ visite_info.jours_restants }} jours
+                </div>
+              </li>
+            {% empty %}
+              <li class="list-group-item">Aucune visite technique n'expire ce mois.</li>
+            {% endfor %}
+          </ul>
+          {% if visites_techniques|length > 2 %}
+                <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#visiteTechniqueModal">
+                    Voir plus
+                </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- Modal -->
+<div class="modal fade" id="visiteTechniqueModal" tabindex="-1" role="dialog" aria-labelledby="visiteTechniqueModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="visiteTechniqueModalLabel">Visites Techniques</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <ul class="list-group list-group-flush">
+                  {% for visite_info in visites_techniques|slice:"2:" %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                          <strong>Immatriculation:</strong> {{ visite_info.immatriculation }}<br>
+                          <strong>Date de fin:</strong> {{ visite_info.Date_de_fin }}<br>
+                          <strong>Jours restants:</strong> {{ visite_info.jours_restants }} jours
+                      </div>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+
+</div>
+<div class="row">
+  <div class="col-xl-4 d-flex grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between">
+            <h4 class="card-title mb-3 text-warning text-justify">Mes Finance de {{french_month_name}}</h4>
+            <hr>
+            <br><br> 
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-5">
+              <div class="mr-1">
+                <div class="text-info mb-1">
+                 Recette 
+                </div>
+                <h2 class="mb-2 mt-2 font-weight-bold">{{total_recettes}} CFA</h2>
+              </div>
+              <hr>
+              <div class="mr-1">
+                <div class="text-info mb-1">
+                 Depense 
+                </div>
+                <h2 class="mb-2 mt-2 font-weight-bold">{{totals_depenses}} CFA</h2>
+                <hr>
+                <div class="text-info mb-1">
+                  Benefice 
+                </div>
+                <div class="d-flex align-items-baseline">
+                  {% if total_recettes > total %}
+                    {% if total < 0 %}
+                      <div class="d-flex align-items-center">
+                          <i class="fas fa-arrow-down text-danger mr-2"></i>
+                          <h2 class="mb-0 font-weight-bold text-danger">{{total}} CFA</h2>
+                      </div>
+                   {% else%}
+                    <i class="fas fa-arrow-up text-success mr-2"></i>
+                    <h2 class="mb-0 font-weight-bold text-success">{{total}} CFA</h2>
+                   {% endif %}
+                  {% else %}
+                    <i class="fas fa-arrow-down text-danger mr-2"></i>
+                    <h2 class="mb-0 font-weight-bold text-danger">{{total}} CFA</h2>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--diagramme a bande -->
+  {% for year, data in chart_data.items %}
+
+  <div class="col-xl-8 d-flex grid-margin stretch-card">
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title mb-3 text-warning text-justify">Recettes et dépenses pour l'annee {{ year }}</h4>
+              <canvas id="chart-{{ year }}"></canvas>
+          </div>
+      </div>
+  </div>
+  
+  <script>
+      const ctx = document.getElementById('chart-{{ year }}').getContext('2d');
+      const chart = new Chart(ctx, {
+          type: 'bar',
+          data: {{ data|safe }},
+          options: {
+              responsive: true,
+              scales: {
+                x: {
+                    title: {
+                      display: true,
+                      text: 'Mois'
+                    }
+                  },
+                  y: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: 'Montant (CFA)'
+                    }
+                  },
+              }
+          }
+      });
+      
+  </script>
+
+  {% endfor %}
+
+</div>
+
+
+<div class="d-flex">
+  <div class="card card-stats flex-fill draggable">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title text-uppercase mb-0"> RECETTE ANNUELLE {{current_year}}</h5><br>
+          <span class="h2 font-weight-bold mb-0 text-info">{{total_recettes_annee}} CFA</span>
+        </div>
+      </div><br>
+    </div>
+  </div>
+
+  <div class="card card-stats flex-fill draggable">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title text-uppercase mb-0"> DEPENSE ANNUELLE {{current_year}}</h5><br>
+          <span class="h2 font-weight-bold mb-0 text-danger">{{total_depenses_annuel}} CFA</span>
+        </div>
+      </div><br>
+    </div>
+  </div>
+
+  <div class="card card-stats flex-fill draggable">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title text-uppercase mb-0">BENEFICE ANNUEL {{current_year}}</h5><br>
+          {% if benefice_anne > 0 %}
+            <i class="fa fa-arrow-up text-success"></i>
+            <span class="h2 font-weight-bold mb-0 text-success">{{benefice_anne}} CFA</span>
+          {% else %}
+            <i class="fa fa-arrow-down text-danger"></i>
+            <span class="h2 font-weight-bold mb-0 text-danger">{{benefice_anne}} CFA</span>
+          {% endif %}
+        </div>
+      </div><br>
+    </div>
+  </div>
+      <!-- Afficher les informations des véhicules 
+      <h2>Top 5 des véhicules qui vont le plus au garage</h2>
+      <ul>
+          {% for vehicle in top_5_vehicles %}
+              <li>Immatriculation: {{ vehicle.immatriculation }}, Modèle: {{ vehicle.Modele_voiture__nom }}, Type: {{ vehicle.Marque_voiture__nom }}</li>
+          {% endfor %}
+      </ul>-->
+
+      <!-- Autres sections de votre dashboard -->
+</div>
+
+{% endblock content %}
+
+<style>
+.text-justify {
+    text-align: justify;
+}
+
+
+</style>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/static/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker enregistré avec succès:', registration);
+      })
+      .catch(error => {
+        console.log('Échec de l\'enregistrement du Service Worker:', error);
+      });
+  });
+}
+
+
+</script>
+
+

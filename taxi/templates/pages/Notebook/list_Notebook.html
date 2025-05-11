@@ -1,0 +1,61 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        
+        <h4 class="card-title" align="center"> véhicules au garage</h4>
+
+
+        <div class="d-flex justify-content-between">
+          <a href="{%url 'Create_Notebook' %}" class="btn btn-info float-left"> <i class="fas fa-plus menu-icon"></i> Ajouter </a><br><br>
+        </div><br>
+        
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Date d'arrivage</th>
+                <th>Véhicule</th>
+                <th>Statut du véhicule</th>
+                <th>Motif</th>
+                <th>option</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for notebook in Notebook_List %}
+              <tr>
+                    <td>{{ notebook.date_arrivage }}</td>
+                    <td>{{ notebook.vehicule }}</td>
+                    <td>{{ notebook.statut_vehicule }}</td>
+                    <td>{{ notebook.get_motif_display }}</td>
+                    <th>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item"  href="{% url 'update_notebook' pk=notebook.pk %}"> <i class="fas fa-edit  menu-icon"></i> Modifier</a>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <div role="separator" class="dropdown-divider"></div>
+                        {% if notebook.statut_vehicule != 'circulation' %}
+                        <form method="post" action="{% url 'change_statut_to_circulation' notebook.id %}" class="mt-3">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-fw"><i class="fas fa-car menu-icon"></i> Mettre en circulation</button>
+                        </form>
+                        {% endif %}
+                      </div>
+                    </th>
+
+              </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

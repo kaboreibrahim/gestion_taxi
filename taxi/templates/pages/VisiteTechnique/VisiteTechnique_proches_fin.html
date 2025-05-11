@@ -1,0 +1,172 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pM5Mu7TM6GqS02t6nDjFfMi9QlgPn+ZX9wiC0oOmzJw/lFf5cRTd9WJ3GmOgR4yh" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  tr:hover {
+    background-color: #ddd;
+  }
+  .btn {
+    margin: 5px;
+  }
+  .btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+  }
+</style>
+<div class="col-lg-12 grid-margin stretch-card">
+
+    <div class="card">
+
+      <div class="card-body">
+        
+        <h2 style="text-align: center"><u>Visite Technique  dont la date de fin est la plus proche</u></h2><br><br>
+        <a href="{% url 'VisiteTechniquePdfView' %}" class="btn btn-info float-left"> <i class="   fas fa-file-pdf menu-icon"></i> Télécharger le PDF</a>
+        <a href="{% url 'send_email_reminders_VT'%}" class="btn btn-info float-right"> <i class="   fas fa-envelope menu-icon"></i>  envoi de mail pour un rappel</a>
+
+        <br>
+        <!--<form method="GET" id="filter-form">
+          <div class="row mb-3">
+            <div class="col">
+              <select name="marque" class="form-control" onchange="this.form.submit()">
+                <option value="">Sélectionnez une marque</option>
+                {% for marque in marques %}
+                  <option value="{{ marque.id }}" {% if request.GET.marque == marque.id|stringformat:"s" %}selected{% endif %}>{{ marque }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col">
+              <select name="modele" class="form-control" onchange="this.form.submit()">
+                <option value="">Sélectionnez un modèle</option>
+                {% for modele in modeles %}
+                  <option value="{{ modele.id }}" {% if request.GET.modele == modele.id|stringformat:"s" %}selected{% endif %}>{{ modele}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col">
+              <select name="assureur" class="form-control" onchange="this.form.submit()">
+                <option value="">Sélectionnez un assureur</option>
+                {% for assureur in assureurs %}
+                  <option value="{{ assureur }}" {% if request.GET.assureur == assureur %}selected{% endif %}>{{ assureur }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col">
+              <select name="semaine" class="form-control" onchange="this.form.submit()">
+                <option value="">Sélectionnez une semaine</option>
+                {% for week in semaines %}
+                  <option value="{{ week }}" {% if request.GET.semaine == week|stringformat:"s" %}selected{% endif %}>Semaine {{ week }}</option>
+                {% endfor %}
+              </select>            
+            </div>
+          </div>
+        </form> !-->
+
+            <div class="table-responsive">
+             
+              <table id="myTable" class="table table-striped">
+
+                <thead>
+                  <tr>
+                    <th>N°</th>
+                    <th>Image</th>
+                    <th>Immatriculation</th>
+                    <th>Marque</th>
+                    <th>Modèle </th>
+                    <th>Centre Agree</th>
+                    <th>Numero Vignette</th>
+                    <th>Mois</th>
+                    <th>Date</th>
+                    <th>Jour de la semaine</th>
+                    <th>Semaine</th>
+                    <th>Observation</th>
+                    <th>Nombre de jours restant</th>
+                                    <!--  <th>Montant</th>-->
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for VisiteTechnique in VisiteTechnique_proches_fin %}
+                  <tr {% if VisiteTechnique.Date_de_fin|date:"l" == "dimanche" or assurance.Date_fin|date:"l" == "samedi" %}style="color:red"{% endif %}>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td><img src="{{ VisiteTechnique.get_vehicule_image_url }}" alt="Vehicule image" width="100"></td>
+                      <td>{{ VisiteTechnique.immatriculation.immatriculation }}</td>
+                <td>{{ VisiteTechnique.immatriculation.Marque_voiture }}</td>
+                <td>{{ VisiteTechnique.immatriculation.Modele_voiture }}</td>
+                <td>{{ VisiteTechnique.Centre_agree }}</td>
+                <td>{{ VisiteTechnique.Numero_vignette }}</td>
+                <td>{{ VisiteTechnique.Date_de_fin|date:"F" }}</td>
+                <td>{{ VisiteTechnique.Date_de_fin|date:"d/m/Y" }}</td>
+                <td>{{ VisiteTechnique.Date_de_fin|date:"l" }}</td>
+                <td>{{ VisiteTechnique.semaine_du_mois }}</td>
+                <td>{{ VisiteTechnique.Observation }}</td>
+                <td>{{ VisiteTechnique.jours_restants }} jours</td>
+                <!-- <td>{{ VisiteTechnique.Montant }} FCFA</td>-->
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                    <td colspan="12" style="text-align:center; font-weight:bold;">TOTAL :</td>
+                    <td style="font-weight:bold;">{{ total_montant }} FCFA</td>
+                </tr>
+                <tr>
+                  <td colspan="13" style="text-align:center; font-weight:bold;"> "VGNR": Vignette non renouvelable     //////        "VGR": vignette a renouvellé </td>
+              </tr>
+                  <!-- Ajouter les liens de pagination 
+              <div class="pagination-container">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"><i class="fas fa-angle-left"></i></i> Précédent</a>
+                            {% endif %}
+            
+                            <span class="current">
+                                Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                            </span>
+            
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Suivant <i class="fas fa-angle-right"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></i></a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>-->
+                </tbody>
+              </table>
+            </div>
+      </div>
+    </div>
+  </div>
+  
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('filter-form');
+        form.addEventListener('change', function () {
+          form.submit();
+        });
+      });
+    </script>
+  
+  {% endblock %}
+
+

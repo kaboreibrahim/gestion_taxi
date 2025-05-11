@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notebook du véhicule</title>
+    <!-- Inclure les fichiers CSS de Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Notebook Véhicule  {{ vehicule.Marque_voiture }}  {{ vehicule.Modele_voiture }}  {{ vehicule.immatriculation }} </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+</nav>
+
+<div class="container mt-5">
+
+    <!-- Barre de recherche -->
+    <div class="input-group mb-4">
+        <input type="text" id="searchInput" class="form-control" placeholder="Rechercher...">
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
+
+    <div class="row" id="notebookList">
+        {% for note in notebook %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Date d'arrivage :</strong> {{ note.date_arrivage }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Motif : {{ note.get_motif_display }}</h5>
+                    <p class="card-text"><strong>Statut :</strong> 
+                        <span class="badge {% if note.get_statut_vehicule_display == 'Garage' %}badge-danger{% else %}badge-info{% endif %}">
+                            {{ note.get_statut_vehicule_display }}
+                        </span>
+                    </p>                    
+                    <p class="card-text"><strong>Commentaire :</strong> {{ note.commentaire }}</p>
+                    <p class="card-text"><strong>Date de sortie :</strong> {{ note.date_sortie }}</p>
+                    <p class="card-text"><strong>Nombre de temps passé au garage :</strong> {{ note.temps_passe_au_garage }}</p>
+                    <p class="card-text"><strong>Chauffeur  :</strong> {{ note.chauffeur }}</p>
+                    <p class="card-text"><strong>kilometrage  :</strong> {{ note.Kilometrage }} KM</p>
+                    <p class="card-text"><strong>Pièces :</strong></p>
+                    <ul class="list-group">
+                        {% for piece in note.piece.all %}
+                        <li class="list-group-item">{{ piece.nom_piece }} ({{ piece.ref_piece }}) </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Inclure les fichiers JS de Bootstrap et FontAwesome pour les icônes -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<!-- Script JavaScript pour la recherche en temps réel -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const notebookList = document.getElementById('notebookList');
+        const cards = notebookList.getElementsByClassName('card');
+
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                const text = card.textContent || card.innerText;
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    card.parentElement.style.display = '';
+                } else {
+                    card.parentElement.style.display = 'none';
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
+{% endblock %}

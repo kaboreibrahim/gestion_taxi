@@ -1,0 +1,72 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <style>
+    /* Ajoutez ici vos styles CSS */
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+
+  <h1><strong>Détails de la vidange du vehicule  {{detail_Vidange.immatriculation}} </strong></h1>
+ 
+  <table>
+    <tr>
+        <th>Numero vidange</th>
+        <td>{{ detail_Vidange.Label_vidange }}</td>
+    </tr>
+      <tr>
+        <th> Date de la vidange </th>
+        <td>{{ detail_Vidange.Date_vidange }} </td>
+    </tr>
+    <tr>
+      <th>filtre a huile changer  </th>
+      <td>{{ detail_Vidange.Filtre_a_huile }}</td>
+    </tr>
+    <tr>
+      <th>filtre a air changer </th>
+      <td>{{ detail_Vidange.Filtre_a_air }}</td>
+    </tr>
+    <tr>
+      <th> filtre a pollen changer </th>
+      <td>{{ detail_Vidange.Filtre_a_pollen }}</td>
+    </tr>
+    <tr>
+      <th>filtre a gasoil  </th>
+      <td>{{ detail_Vidange.Filtre_a_gasoil }}</td>
+    </tr>
+    <tr>
+      <th>Kilometrage a la vidange</th>
+      <td>{{ detail_Vidange.Kilometrage_vidange }} KM</td>
+    </tr>
+    <tr>
+        <th>Kilometrage a la prochaine  vidange</th>
+        <td>{{ detail_Vidange.Kilometrage_prochaine_vidange }} KM</td>
+    </tr>
+    <tr>
+        <th> Nom du chauffeur present </th>
+        <td>{{ detail_Vidange.Nom_chauffeur }} </td>
+    </tr>
+    <tr>
+        <th> Nom du chauffeur present </th>
+        <td>{{ detail_Vidange.Observation }} </td>
+    </tr>
+  </table>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="my-4">  carnet des  véhicules</h1>
+    <div class="row">
+        {% for vehicule in vehicules %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ vehicule.modele_de_voiture }}</h5>
+                    <p class="card-text">{{ vehicule.immatriculation }}</p>
+                    <a href="{% url 'vehicule_detail' vehicule.id %}" class="btn btn-primary">Voir les détails</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+ 

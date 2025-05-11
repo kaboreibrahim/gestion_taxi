@@ -1,0 +1,6 @@
+<h2>Enter Verification Code</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Verify</button>
+</form>

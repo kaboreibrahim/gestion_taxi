@@ -1,0 +1,20 @@
+{% for message in messages %}
+<div class="container-fluid">
+    <div id="alert-message" class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message|safe }}</strong>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    // Sélectionnez la div d'alerte
+    const alertDiv = document.getElementById('alert-message');
+    
+    // Si la div d'alerte existe
+    if (alertDiv) {
+        // Attendez 10 secondes puis masquez la div
+        setTimeout(function() {
+            alertDiv.style.display = 'none';
+        }, 5000);
+    }
+</script>

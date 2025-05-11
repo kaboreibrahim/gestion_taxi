@@ -1,0 +1,323 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>GEST-TAXI</title>   
+    <link rel="shortcut icon" href="{% static 'images/clef-de-voiture.png' %}" />
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <img src="{% static 'images/register.jpeg' %}" alt="Illustration">
+        </div>
+        <div class="right-panel">
+            <h2>Bienvenue Chez GEST-TAXI </h2>
+            <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3>Créez un compte</h3>
+
+                <div id="registerCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="mb-3">
+                                <label for="id_first_name">Prénom</label>
+                                <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Prénom" value="{{ form.first_name.value|default_if_none:'' }}">
+                                {% if form.first_name.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.first_name.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_last_name">Nom</label>
+                                <input type="text" name="last_name" id="id_last_name" class="form-control" placeholder="Nom" value="{{ form.last_name.value|default_if_none:'' }}">
+                                {% if form.last_name.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.last_name.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_username">Nom d'utilisateur</label>
+                                <input type="text" name="username" id="id_username" class="form-control" placeholder="Nom d'utilisateur" value="{{ form.username.value|default_if_none:'' }}">
+                                {% if form.username.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.username.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_Proprietaire_photos">Photo de l'utilisateur</label>
+                                <input type="file" name="Proprietaire_photos" id="id_Proprietaire_photos" class="form-control" placeholder="Photo de l'utilisateur">
+                                {% if form.Proprietaire_photos.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.Proprietaire_photos.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_email">Email</label>
+                                <input type="email" name="email" id="id_email" class="form-control" placeholder="Email" value="{{ form.email.value|default_if_none:'' }}">
+                                {% if form.email.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.email.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_Contact">Contact</label>
+                                <input type="text" name="Contact" id="id_Contact" class="form-control" placeholder="Contact">
+                                {% if form.Contact.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.Contact.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+                        <div class="carousel-item">
+                            <div class="mb-3">
+                                <label for="id_N_registre_commerce">N° registre commerce</label>
+                                <input type="text" name="N_registre_commerce" id="id_N_registre_commerce" class="form-control" placeholder="N° registre commerce">
+                                {% if form.N_registre_commerce.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.N_registre_commerce.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_N_CNI_proprietaire">Numéro de CNI</label>
+                                <input type="text" name="N_CNI_proprietaire" id="id_N_CNI_proprietaire" class="form-control" placeholder="Numéro de CNI" value="{{ form.N_CNI_proprietaire.value|default_if_none:'' }}">
+                                {% if form.N_CNI_proprietaire.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.N_CNI_proprietaire.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_Proprietaire_CNI_photos">Photo de CNI</label>
+                                <input type="file" name="Proprietaire_CNI_photos" id="id_Proprietaire_CNI_photos" class="form-control" placeholder="Photo de CNI">
+                                {% if form.Proprietaire_CNI_photos.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.Proprietaire_CNI_photos.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_password1">Mot de passe</label>
+                                <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Mot de passe">
+                                {% if form.password1.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.password1.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_password2">Confirmez le mot de passe</label>
+                                <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Confirmez le mot de passe">
+                                {% if form.password2.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.password2.errors %}
+                                            <span style="font-size: 13px;">{{ error|escape }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3 d-grid text-center">
+                                <button class="btn btn-primary" type="submit">Valider</button>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <a class="carousel-control-prev" href="#registerCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#registerCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">next</span>
+                    </a>
+                </div>
+
+                <div class="options centered-options">
+                    <i class="fas fa-arrow-left"></i>
+                    <a href="{% url 'login' %}">Vous avez déjà un compte? Se connecter</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<style>
+:root {
+    --darkened-bg: #e8f0fe; /* light blue background */
+    --header-link-color: #000000; /* black color for the link */
+    --body-bg: #ffffff; /* white background for the container */
+    --hairline-color: #d1d5db; /* light gray border */
+    --button-bg: #e30061; /* pink button background */
+    --button-text-color: #ffffff; /* white button text */
+    --input-bg: #f1f5f9; /* light gray input background */
+    --input-text-color: #000000; /* black input text color */
+    --link-color: #1a73e8; /* blue link color */
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel {
+    flex: 1;
+    background: var(--darkened-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-panel img {
+    max-width: 100%;
+    height: auto;
+}
+
+.right-panel {
+    flex: 1;
+    background: var(--body-bg);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-panel h2 {
+    margin-bottom: 20px;
+    color: var(--header-link-color);
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+}
+
+form h3 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--input-text-color);
+    background-color: var(--input-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: 0.25rem;
+}
+
+.alert {
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 0.25rem;
+}
+
+.d-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.btn-primary {
+    background: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.options {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.options a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-size: 100%, 100%;
+}
+
+.carousel-control-prev {
+    left: -20%;
+}
+
+.carousel-control-next {
+    right: -20%;
+}
+
+.carousel-item .btn {
+    display: none;
+}
+
+.carousel-item.active .btn {
+    display: inline-block;
+}
+</style>

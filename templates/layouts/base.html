@@ -1,0 +1,540 @@
+{% load static %}
+{% load static i18n %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Inclure les fichiers CSS de FullCalendar -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GEST-TAXI</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="{% static 'vendors/typicons.font/font/typicons.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
+   
+    <link rel="stylesheet" href="{% static 'vendors/typicons.font/font/typicons.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'css/vertical-layout-light/style.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+    <!-- endinject --> 
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'css/vertical-layout-light/style.css' %}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{% static 'images/clef-de-voiture.png' %}" />
+    <!-- Ajoutez ces liens dans la section head de votre fichier HTML -->
+
+        <!-- CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+    <!-- JS de jQuery (nécessaire pour DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- JS de DataTables -->
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NGB9XqFIl/dJvjTZGg9K9NJHK0t5Fm3FMpJBkWXqBKSOoJNap4rsQg+0P4Y1ZJFA" crossorigin="anonymous"></script>
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+
+  </head>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pM5Mu7TM6GqS02t6nDjFfMi9QlgPn+ZX9wiC0oOmzJw/lFf5cRTd9WJ3GmOgR4yh" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofGJopfM2Wq2+M5ffFfeUnF7tjCJb4qy1" crossorigin="anonymous">
+  
+<body>
+    
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="{% url 'index'%}"> <img src="{% static 'images/clef-de-voiture.png' %}" alt="logo"></a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+           <!--<ul class="navbar-nav mr-lg-2">
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link" href="#">
+                Calendar
+              </a>
+            </li>
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link active" href="#">
+                Statistic
+              </a>
+            </li>
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link" href="#">
+                Employee
+              </a>
+            </li>
+          </ul>-->
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-flex  mr-2">
+              
+            </li>
+            <li class="nav-item dropdown d-flex">
+              
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow">
+                    <h6 class="preview-subject ellipsis font-weight-normal">David Grey
+                    </h6>
+                    <p class="font-weight-light small-text mb-0">
+                      The meeting is cancelled
+                    </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                 
+                  <div class="preview-item-content flex-grow">
+                    <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
+                    </h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Upcoming board meeting
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item dropdown  d-flex">
+              
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-success">
+                      <i class="typcn typcn-info-large mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Just now
+                    </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-warning">
+                      <i class="typcn typcn-cog mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">Settings</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Private message
+                    </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-info">
+                      <i class="typcn typcn-user-outline mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      2 days ago
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+     
+            <li class="nav-item nav-profile dropdown">
+              {% if user.is_authenticated %}
+                  {% if user.Proprietaire_photos %}
+                    <img class="rounded-circle me-lg-2" src="{{ user.Proprietaire_photos.url }}" alt="" style="width: 40px; height: 40px;">
+                  {% else %}
+                    <img class="rounded-circle me-lg-2" src="{% static 'path/to/default/image.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                  {% endif %}
+                {% endif %}
+
+              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
+                
+                <span class="nav-profile-name">{{request.user.username}}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="{% url 'afficher_informations_proprietaire'%}">
+                <i class="typcn typcn-cog text-primary"></i>
+                profil 
+                </a>
+                <a class="dropdown-item" href="{% url 'deconnexion'%}">
+                <i class="typcn typcn-power text-primary"></i>
+                DECONNEXION 
+                </a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">SIDEBAR SKINS</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              Light
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              Dark
+            </div>
+            <p class="settings-heading mt-2">HEADER SKINS</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <div class="d-flex sidebar-profile">
+              <div class="sidebar-profile-image">
+                {% if user.is_authenticated %}
+                  {% if user.Proprietaire_photos %}
+                    <img class="rounded-circle me-lg-2" src="{{ user.Proprietaire_photos.url }}" alt="" style="width: 40px; height: 40px;">
+                  {% else %}
+                    <img class="rounded-circle me-lg-2" src="{% static 'path/to/default/image.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                  {% endif %}
+                {% endif %}
+
+                <span class="sidebar-status-indicator"></span>
+              </div>
+              <div class="sidebar-profile-name">
+                <p class="sidebar-name">
+                 
+                  {{request.user.username}}
+                </p><br>
+                <p class="sidebar-designation">
+                  
+                  Welcome
+                </p>
+              </div>
+            </div>
+            <!--<div class="nav-search">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Type to search..." aria-label="search" aria-describedby="search">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="search">
+                    <i class="typcn typcn-zoom"></i>
+                  </span>
+                </div>
+              </div>
+            </div>-->
+            <h3 class="sidebar-menu-title text-info text-align" style=""> Menu</h3>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index'%}">
+              <i class="  fas fa-chart-pie  menu-icon"></i>
+              <span class="menu-title">Dashboard </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'rapport_vehicule'%}">
+              <i class="  fas fa-book-open  menu-icon"></i>
+              <span class="menu-title">Rapport </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'vehicule_list'%}">
+              <i class="  fas fa-book  menu-icon"></i>
+              <span class="menu-title">Notebook  </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'Notebook_List'%}">
+              <i class="  fas fa-car  menu-icon"></i>
+              <span class="menu-title">Vehicule au garage </span>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class=" fas fa-car-side menu-icon"></i>
+
+              <span class="menu-title"> Vehicule </span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'TypeDeVoiture_list'%}">marque vehicule </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'ModeleDeVoiture_list'%}">modele vehicule </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'list_voiture'%}"> liste</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'create_Vehicule' %}">ajouter</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'liaison_list' %}">Lier Vehicule a un chauffeur </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="  fas fa-user-alt  menu-icon"></i>
+              <span class="menu-title">Chauffeur</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item"><a class="nav-link" href="{% url 'list_Chauffeur'%}">liste </a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'create_Chauffeur' %}">ajouer</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class=" fas fa-dollar-sign  menu-icon"></i>
+              <span class="menu-title">Finance</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'list_recette'%}">Recette</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'list_Depense'%}">Depense</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'list_Vidange'%}">
+              <i class="   fas fa-fill-drip  menu-icon"></i>
+              <span class="menu-title">Vidange</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class=" fas fa-folder-open  menu-icon"></i>
+              <span class="menu-title">Documents</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'list_Assurance'%}">Assurance</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'list_CarteStationnement'%}">Carte de Stationnement</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'list_Patente'%}">Patente</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'list_VisiteTechnique'%}">Visite Technique</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="  fas fa-tools  menu-icon"></i>
+              <span class="menu-title">Gestion des pieces </span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item"> <a class="nav-link" href="{% url 'Piece_list'%}">Piece</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{%url 'EntreeStock_list'%}">entrée de piece</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{%url 'SortieStock_list'%}">sortie de piece</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{%url 'get_stock_entre'%}">voir le stock des pieces </a></li>
+              </ul>
+            </div>
+          </li>
+
+          
+        
+          <!--<li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="typcn typcn-compass menu-icon"></i>
+              <span class="menu-title">Icons</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <span class="menu-title">User Pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">Error pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="error">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pages/documentation/documentation.html">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Documentation</span>
+            </a>
+          </li>
+        </ul>-->
+        <ul class="sidebar-legend">
+          <hr></hr>
+        
+          <button class="Btn" onclick="window.location.href='{% url 'deconnexion' %}'">
+            <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+            
+            <div class="text">logout</div>
+          
+          </button>
+
+        </ul>
+      </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="container-fluid">
+              {% include "layouts/_message.html" %}
+            </div>
+            {% block content %}
+            {% endblock content %}
+                        
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+              <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <script>document.write(new Date().getFullYear())</script>
+                KABORE -  TECH &copy; Gestion de taxi
+            
+            </div>
+              </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="{% static 'js/off-canvas.js' %}"></script>
+    <script src="{% static 'js/hoverable-collapse.js' %}"></script>
+    <script src="{% static 'js/template.js' %}"></script>
+    <script src="{% static 'js/settings.js' %}"></script>
+    <script src="{% static 'js/todolist.js' %}"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="{% static 'vendors/progressbar.js/progressbar.min.js' %}"></script>
+    <script src="{% static 'vendors/chart.js/Chart.min.js' %}"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <!-- End custom js for this page-->
+{% block scripts %}
+{% endblock scripts %}
+  </body>
+</html>
+<style>
+  /* From Uiverse.io by vinodjangid07 */ 
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(255, 65, 65);
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: white;
+}
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: .3s;
+}
+/* hover effect on button width */
+.Btn:hover {
+  width: 125px;
+  border-radius: 40px;
+  transition-duration: .3s;
+}
+
+.Btn:hover .sign {
+  width: 30%;
+  transition-duration: .3s;
+  padding-left: 20px;
+}
+/* hover effect button's text */
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: .3s;
+  padding-right: 10px;
+}
+/* button click effect*/
+.Btn:active {
+  transform: translate(2px ,2px);
+}
+  
+</style>

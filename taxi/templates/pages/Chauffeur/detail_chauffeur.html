@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <style>
+    /* Ajoutez ici vos styles CSS */
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+
+  <h1><strong>Détails du  chauffeur {{detail_Chauffeur.Nom}} {{detail_Chauffeur.Prenom}} </strong></h1>
+  <div class="testimonial-item text-center">
+    <img class="img-fluid rounded-circle mx-auto mb-4" src="{{ detail_Chauffeur.Chauffeur_photos.url }}" style="width: 150px; height: 150px;"> <!-- Adjust the width and height as needed -->
+</div>
+  <table>
+    <tr>
+        <th>N° permis</th>
+        <td>{{ detail_Chauffeur.N_permis }}</td>
+      </tr>
+    <tr>
+      <th>N° CNI du chauffeur </th>
+      <td>{{ detail_Chauffeur.N_CNI_chauffeur }}</td>
+    </tr>
+    <tr>
+      <th>Annee d'anciennete</th>
+      <td>{{ detail_Chauffeur.Annee_anciennete }}</td>
+    </tr>
+    <tr>
+      <th>contact du chauffeur</th>
+      <td>{{ detail_Chauffeur.Contact }}</td>
+    </tr>
+    <tr>
+      <th>lieu de residence du chauffeur  </th>
+      <td>{{ detail_Chauffeur.Lieu_de_residence }}</td>
+    </tr>
+    <tr>
+      <th>date de prise en service</th>
+      <td>{{ detail_Chauffeur.Date_de_prise_service }}</td>
+    </tr>
+   
+
+  </table>
+{% endblock content %}

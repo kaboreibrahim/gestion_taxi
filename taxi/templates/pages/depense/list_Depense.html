@@ -1,0 +1,94 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        
+        
+      
+      <h4 class="card-title" align="center">liste de toutes les Depenses</h4>
+      
+        {% if list_Depense %}
+        <div class="d-flex justify-content-between">
+          <a href="{% url 'create_Depense' %}" class="btn btn-info float-left"> <i class="fas fa-plus menu-icon"></i> nouvelle depense   <i class=" fas fa-dollar-sign  menu-icon"></i> </a><br><br>
+
+          <a href="{% url 'depense_details' %}" class="btn btn-info float-left"> <i class="fas fa-plus menu-icon"></i>  depense détaillé</a>
+        </div><br>
+        <form method="get" class="d-flex justify-content-between">
+          <div class="form-group w-100 me-2">
+            <label for="date_debut">Date de début</label>
+            <input type="date" name="date_debut" class="form-control" id="date_debut" value="{% if request.GET.date_debut %}{{ request.GET.date_debut }}{% endif %}">
+          </div>
+          <div class="form-group w-100 me-1">
+            <label for="date_fin">Date de fin</label>
+             <input type="date" name="date_fin" class="form-control" id="date_fin" value="{% if request.GET.date_fin %}{{ request.GET.date_fin }}{% endif %}">
+          </div>
+          <div class="align-self-center">
+            <button type="submit" class="btn btn-info">Filtrer</button>
+          </div>
+        </form>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Achat </th>
+                <th>Fournisseur </th>
+                <th>Date </th>
+                <th>vehicule</th>
+                <th>Montant</th>
+                <th>modifier</th>
+             
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for Depense in list_Depense %}
+              <tr>
+                    <td>{{Depense.piece}}</td>
+                    <td>{{Depense.Nom_du_Founissuer}}</td>
+                    <td>{{Depense.Date_depense}}</td>
+                    <td>{{Depense.immatriculation}}</td>
+                    <td>{{Depense.Montant}} Cfa</td>
+                    
+                    <td>
+                      <a href="{% url 'update_Depense' pk=Depense.pk %}"  class="btn btn-inverse-primary btn-fw"><i class="fas fa-edit  menu-icon"></i></a>
+                    </td>
+              </tr>
+              {% endfor %}
+              <!-- Ajouter les liens de pagination -->
+              <div class="pagination-container">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"><i class="fas fa-angle-left"></i></i> Précédent</a>
+                            {% endif %}
+            
+                            <span class="current">
+                                Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                            </span>
+            
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">Suivant <i class="fas fa-angle-right"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></i></a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <a href="{% url 'create_Depense' %}" class="btn btn-info ">+  nouvelle depense </a><br><br>
+
+        <h2 class="text-primary text-info"><a href="{% url 'list_Depense' %}" >
+          
+          <i class="fas fa-arrow-left"></i> Aucun element, Retourner à la liste des Depenses
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

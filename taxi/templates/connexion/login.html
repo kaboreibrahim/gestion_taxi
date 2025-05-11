@@ -1,0 +1,59 @@
+
+{% extends 'registration/base.html' %}
+{% load static %}
+{% load static i18n %}
+{% block content %}
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo text-center " >
+                <img src="{% static 'images/clef-de-voiture.png'%}" alt="logo">
+              </div>
+              
+              <h2>Bienvenue sur GEST-TAXI !</h2> <br>
+            <h4 class="font-weight-light">Connectez-vous pour continuer</h4>
+              <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+
+                    {% for error in form.non_field_errors %}
+                        <span  style="font-size: 13px;">
+                            {{ error|escape }}
+                        </span>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+
+                
+                
+                <div class="mb-3">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Nom d'utilisateur ou e-mail">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe">
+                </div>
+                
+                <div class="mb-3 d-grid text-center">
+                    <button class="btn btn-primary" type="submit">Se connecter</button>
+                </div>
+                <div class="options centered-options">
+                    <a href="{% url 'password_reset'%}">Mot de passe oublié </a><br>
+                      <a href="{%url 'register' %}">Cree un compte ! </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+<title>Informations du Propriétaire</title>
+</head>
+<body>
+    <h1>Informations du Propriétaire</h1>
+
+    {% if proprietaire %}
+    {% if proprietaire.Proprietaire_photos %}
+    <div class="testimonial-item text-center">
+        <img class="img-fluid rounded-circle mx-auto mb-4" src="{{ proprietaire.Proprietaire_photos.url }}" style="width: 150px; height: 150px;"> <!-- Adjust the width and height as needed -->
+    </div>
+    {% endif %}
+        <p><strong>Propriétaire :</strong> {{ proprietaire.user.username }}</p>
+        <p><strong>Numéro de CNI :</strong> {{ proprietaire.N_CNI_proprietaire }}</p>
+        <p><strong>Email :</strong> {{ proprietaire.Mail }}</p>
+       
+        <p><strong>Contact :</strong> {{ proprietaire.Contact }}</p>
+        <p><strong>Nombre de Véhicules :</strong> {{ nombre_vehicules }}</p>
+    {% else %}
+        <p>Aucune information sur le propriétaire trouvée pour l'utilisateur actuel.</p>
+    {% endif %}
+    
+{% endblock %}
