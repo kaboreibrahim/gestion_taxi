@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
- 
+DEBUG = True
 
 ALLOWED_HOSTS = ['kramotaxi.onrender.com']
 
@@ -216,7 +216,12 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'  # Or your desired timezone
 
 
- 
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://yfyn6v39c7jm.share.zrok.io"   
+]
+ALLOWED_HOSTS = ['yfyn6v39c7jm.share.zrok.io', 'localhost', '127.0.0.1']
+
 # settings.py
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
