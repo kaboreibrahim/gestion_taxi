@@ -26,11 +26,9 @@ from django.views import View
 from django.db.models import Sum
 
 
-try:
-    locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
-except locale.Error:
-    # Si la locale n'est pas disponible, on utilise la locale par défaut
-    locale.setlocale(locale.LC_TIME, '')
+
+# Définir la locale française
+locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
 
 
 def get_jours_feries():
